@@ -20,7 +20,7 @@ import subprocess
 
 from collections import defaultdict
 
-
+import .genemapper
 
 
 #==================================================================
@@ -349,7 +349,7 @@ def mapCollection(stitchedCollection, referenceCollection, bamFileList, mappedFo
 #==================================================================
 #=========================MAIN METHOD==============================
 #==================================================================
-def rose2():
+def main():
     '''
     main run call
     '''
@@ -601,6 +601,9 @@ def rose2():
     superTableFile = "%s_SuperEnhancers.table.txt" % (inputName)
     if options.control:
         cmd = "python ROSE2_geneMapper.py -g %s -r %s -c %s -i %s%s &" % (genome, options.rankby, options.control, outFolder, superTableFile)
+
+        
+        rose2.genemapper.map(os.path.join(outFolder, superTableFile), genome, options.rankby, options.control)
     else:
         cmd = "python ROSE2_geneMapper.py -g %s -r %s -i %s%s &" % (genome, options.rankby, outFolder, superTableFile)
     os.system(cmd)
@@ -625,5 +628,5 @@ def rose2():
 
 
 
-if __name__ == "__rose2__":
-    rose2()
+if __name__ == "__main__":
+    main()
