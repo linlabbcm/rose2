@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: rose2
+Version: 1.0.0
+Summary: ROSE2 python package
+Home-page: UNKNOWN
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: PROGRAM TO STITCH TOGETHER REGIONS TO FORM ENHANCERS, MAP READ DENSITY TO STITCHED REGIONS,AND RANK ENHANCERS BY READ DENSITY TO DISCOVER SUPER-ENHANCERS
+Keywords: stitched regions enhancer reads
+Platform: UNKNOWN

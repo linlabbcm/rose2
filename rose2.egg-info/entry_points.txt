@@ -1,0 +1,3 @@
+[console_scripts]
+rose2 = rose2:main
+
