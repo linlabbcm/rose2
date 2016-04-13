@@ -24,9 +24,7 @@ from collections import defaultdict
 import rose2.genemapper
 
 whereAmI = os.path.dirname(os.path.realpath(__file__))
-scriptsDirectory = string.join(whereAmI.split('/')[:-1],'/')+'/scripts/'
 annotationDirectory = string.join(whereAmI.split('/')[:-1],'/')+'/annotation/'
-print(scriptsDirectory)
 
 #==================================================================
 #=====================HELPER FUNCTIONS=============================
@@ -175,7 +173,7 @@ def optimizeStitching(locusCollection, name, outFolder, stepSize=500):
     stitchParamFile = '%s%s_stitch_params.tmp' % (outFolder, name)
     utils.unParseTable(stitchTable, stitchParamFile, '\t')
     # call the rscript
-    rCmd = 'Rscript %sROSE2_stitchOpt.R %s %s %s' % (scriptsDirectory,stitchParamFile, outFolder, name)
+    rCmd = 'ROSE2_stitchOpt.R %s %s %s' % (stitchParamFile, outFolder, name)
     print(rCmd)
     # get back the stitch parameter
     rOutput = subprocess.Popen(rCmd, stdout=subprocess.PIPE, shell=True)
@@ -616,13 +614,13 @@ def main():
 
         rankbyName = options.rankby.split('/')[-1]
         controlName = options.control.split('/')[-1]
-        cmd = '%sROSE2_callSuper.R %s %s %s %s' % (scriptsDirectory, outFolder, outputFile1, inputName, controlName)
+        cmd = 'ROSE2_callSuper.R %s %s %s %s' % (outFolder, outputFile1, inputName, controlName)
         
         
     else:
         rankbyName = options.rankby.split('/')[-1]
         controlName = 'NONE'
-        cmd = 'R --no-save %s %s %s %s < %sROSE2_callSuper.R' % (outFolder, outputFile1, inputName, controlName, scriptsDirectory)
+        cmd = 'ROSE2_callSuper.R %s %s %s %s' % (outFolder, outputFile1, inputName, controlName)
         
     print(cmd)
 
