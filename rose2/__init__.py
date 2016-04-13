@@ -8,10 +8,8 @@ CONTACT: youngcomputation@wi.mit.edu
 '''
 
 from __future__ import absolute_import  # , division, print_function, unicode_literals
-import rose2.ROSE2_utils as utils
 
 import sys
-# import ROSE_utils
 import time
 import copy
 import os
@@ -21,7 +19,8 @@ import string
 
 from collections import defaultdict
 
-import rose2.genemapper
+from . import genemapper, utils
+
 
 whereAmI = os.path.dirname(os.path.realpath(__file__))
 annotationDirectory = string.join(whereAmI.split('/')[:-1],'/')+'/annotation/'
