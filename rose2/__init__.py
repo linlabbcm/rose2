@@ -636,7 +636,7 @@ def main():
         genemapper.map(os.path.join(outFolder, superTableFile), genome, options.rankby, options.control)
     else:
         #cmd = "python ROSE2_geneMapper.py -g %s -r %s -i %s%s &" % (genome, options.rankby, outFolder, superTableFile)
-        genemapper.map(os.path.join(outFolder,superTableFile), genome, options.rankby)
+        genemapper.map(os.path.join(outFolder,superTableFile), genome, options.rankby, '')
     #os.system(cmd)
 
 
@@ -646,7 +646,7 @@ def main():
         genemapper.map(os.path.join(outFolder,stretchTableFile), genome, options.rankby, options.control)
     else:
         #cmd = "python ROSE2_geneMapper.py -g %s -r %s -i %s%s &" % (genome, options.rankby, outFolder, stretchTableFile)
-        genemapper.map(os.path.join(outFolder,StretchTableFile), genome, options.rankby)
+        genemapper.map(os.path.join(outFolder,stretchTableFile), genome, options.rankby, '')
     #os.system(cmd)
 
 
@@ -656,5 +656,5 @@ def main():
         genemapper.map(os.path.join(outFolder,superStretchTableFile), genome, options.rankby, options.control)
     else:
         #cmd = "python ROSE2_geneMapper.py -g %s -r %s -i %s%s &" % (genome, options.rankby, outFolder, superStretchTableFile)
-        genemapper.map(os.path.join(outFolder,superStretchTableFile), genome, options.rankby)
+        genemapper.map(os.path.join(outFolder,superStretchTableFile), genome, options.rankby, '')
     #os.system(cmd)

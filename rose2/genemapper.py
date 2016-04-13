@@ -521,7 +521,7 @@ def mapEnhancerToGeneTop(rankByBamFile, controlBamFile, genome, annotFile, enhan
     # now we need to run bamToGFF
 
     # Try to use the bamliquidatior_path.py script on cluster, otherwise, failover to local (in path), otherwise fail.
-    bamliquidator_path = 'bamliquidator_batch.py'
+    bamliquidator_path = 'bamliquidator_batch'
 
 
     print('MAPPING SIGNAL AT ENHANCER ASSOCIATED GENE TSS')

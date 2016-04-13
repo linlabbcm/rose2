@@ -3,8 +3,6 @@ import os
 from setuptools import setup, find_packages
 
 
-whereAmI = os.path.dirname(os.path.realpath(__file__))
-
 
 setup(
 	name='rose2',
@@ -24,10 +22,10 @@ setup(
 	include_package_data=True,
 	package_data={},
 
-
 	install_requires=[],
 
 	extras_require={},
+
 
 	scripts=['scripts/ROSE2_callSuper.R', 'scripts/ROSE2_stitchOpt.R'],
 
