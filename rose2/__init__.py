@@ -450,6 +450,12 @@ def main():
     if options.bams:
         bamFileList += options.bams.split(',')
         #bamFileList = utils.uniquify(bamFileList) # makes sad when you have the same control bam over and over again
+
+    for bam in bamFileList:
+        if not os.path.isfile('{}.bai'.format(bam)):
+            print('INDEX FILE FOR %s IS MISSING' % bam)
+            exit()
+    
     # optional args
 
     # Stitch parameter
