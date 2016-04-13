@@ -19,13 +19,10 @@ setup(
 	keywords='stitched regions enhancer reads',
 
 	packages=find_packages(),
-	include_package_data=True,
-	package_data={},
 
 	install_requires=[],
 
 	extras_require={},
-
 
 	scripts=['scripts/ROSE2_callSuper.R', 'scripts/ROSE2_stitchOpt.R'],
 

@@ -1,3 +1,2 @@
-recursive-include annotation *.txt 
-recursive-include annotation *.ucsc 
-recursive-include annotation *.sizes
+include README.md
+recursive-include annotation * 

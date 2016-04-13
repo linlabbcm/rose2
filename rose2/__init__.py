@@ -577,7 +577,7 @@ def main():
     # MAPPING TO THE STITCHED GFF
 
     # Try to use the bamliquidatior_path.py script on cluster, otherwise, failover to local (in path), otherwise fail.
-    bamliquidator_path = 'bamliquidator_batch.py'
+    bamliquidator_path = 'bamliquidator_batch'
 
 
     bamFileListUnique = list(bamFileList)
