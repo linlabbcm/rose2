@@ -18,9 +18,11 @@ setup(
 	keywords=['bioinformatics','super-enhancers'],
 
 	packages=find_packages(),
+	package_data={
+		'rose2': ['annotation/*'],
+	},
 
-	install_requires=[],
-
+	install_requires=['numpy>=1.8.2'],
 	extras_require={},
 
 	scripts=['scripts/ROSE2_callSuper.R', 'scripts/ROSE2_stitchOpt.R'],

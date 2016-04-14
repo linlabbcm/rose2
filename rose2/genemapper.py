@@ -33,18 +33,14 @@ THE SOFTWARE.
 # update to the gene mapper that finds nearest gene w/ highest signal
 # also switching to using the pipeline utils module as opposed to the
 # stripped down ROSE_utils module
-import sys
-
-import rose2.ROSE2_utils as utils
-# import pipeline_dfci
-
 import os
 import subprocess
-from string import join
-import string
+import sys
 
 from collections import defaultdict
+from string import join
 
+from . import utils
 
 #==========================================================================
 #===================FORMATTING FOLDERS=====================================
@@ -81,8 +77,8 @@ def formatFolder(folderName,create=False):
 whereAmI = os.path.dirname(os.path.realpath(__file__))
 print(whereAmI)
 # Get the script folder
-codeFolder = utils.formatFolder(whereAmI,False)
-annotationDirectory = string.join(whereAmI.split('/')[:-1],'/')+'/annotation/'
+codeFolder = utils.formatFolder(whereAmI, False)
+annotationDirectory = os.path.join(whereAmI, 'annotation') + '/'
 
 print('RUNNING ROSE2_META.py FROM %s' % (whereAmI))
 
