@@ -18,26 +18,12 @@ setup(
 	keywords=['bioinformatics','super-enhancers'],
 
 	packages=find_packages(),
+	package_data={
+		'rose2': ['annotation/*'],
+	},
 
 	install_requires=['numpy>=1.8.2'],
-
 	extras_require={},
-
-	data_files=[
-		('annotation', [
-			'annotation/danRer7_refseq.ucsc',
-			'annotation/hg18_refseq.ucsc',
-			'annotation/hg19_refseq.ucsc',
-			'annotation/hg19.chrom.sizes',
-			'annotation/hg38_refseq.ucsc',
-			'annotation/mm8_refseq.ucsc',
-			'annotation/mm9_refseq.ucsc',
-			'annotation/mm10_refseq.ucsc',
-			'annotation/mm10.chrom.sizes',
-			'annotation/rn4_refseq.ucsc',
-			'annotation/ucsc_chromSize.txt',
-		])
-	],
 
 	scripts=['scripts/ROSE2_callSuper.R', 'scripts/ROSE2_stitchOpt.R'],
 

@@ -23,7 +23,7 @@ from . import genemapper, utils
 
 
 whereAmI = os.path.dirname(os.path.realpath(__file__))
-annotationDirectory = string.join(whereAmI.split('/')[:-1],'/')+'/annotation/'
+annotationDirectory = os.path.join(whereAmI, 'annotation') + '/'
 
 #==================================================================
 #=====================HELPER FUNCTIONS=============================

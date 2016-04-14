@@ -77,8 +77,8 @@ def formatFolder(folderName,create=False):
 whereAmI = os.path.dirname(os.path.realpath(__file__))
 print(whereAmI)
 # Get the script folder
-codeFolder = utils.formatFolder(whereAmI,False)
-annotationDirectory = join(whereAmI.split('/')[:-1],'/')+'/annotation/'
+codeFolder = utils.formatFolder(whereAmI, False)
+annotationDirectory = os.path.join(whereAmI, 'annotation') + '/'
 
 print('RUNNING ROSE2_META.py FROM %s' % (whereAmI))
 
