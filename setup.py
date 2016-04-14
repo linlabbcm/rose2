@@ -19,7 +19,7 @@ setup(
 
 	packages=find_packages(),
 
-	install_requires=[],
+	install_requires=['numpy>=1.8.2'],
 
 	extras_require={},
 
