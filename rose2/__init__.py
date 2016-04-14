@@ -8,10 +8,8 @@ CONTACT: youngcomputation@wi.mit.edu
 '''
 
 from __future__ import absolute_import  # , division, print_function, unicode_literals
-import rose2.ROSE2_utils as utils
 
 import sys
-# import ROSE_utils
 import time
 import copy
 import os
@@ -21,12 +19,11 @@ import string
 
 from collections import defaultdict
 
-import rose2.genemapper
+from . import genemapper, utils
+
 
 whereAmI = os.path.dirname(os.path.realpath(__file__))
-scriptsDirectory = string.join(whereAmI.split('/')[:-1],'/')+'/scripts/'
 annotationDirectory = string.join(whereAmI.split('/')[:-1],'/')+'/annotation/'
-print(scriptsDirectory)
 
 #==================================================================
 #=====================HELPER FUNCTIONS=============================
@@ -175,7 +172,7 @@ def optimizeStitching(locusCollection, name, outFolder, stepSize=500):
     stitchParamFile = '%s%s_stitch_params.tmp' % (outFolder, name)
     utils.unParseTable(stitchTable, stitchParamFile, '\t')
     # call the rscript
-    rCmd = 'Rscript %sROSE2_stitchOpt.R %s %s %s' % (scriptsDirectory,stitchParamFile, outFolder, name)
+    rCmd = 'ROSE2_stitchOpt.R %s %s %s' % (stitchParamFile, outFolder, name)
     print(rCmd)
     # get back the stitch parameter
     rOutput = subprocess.Popen(rCmd, stdout=subprocess.PIPE, shell=True)
@@ -453,6 +450,12 @@ def main():
     if options.bams:
         bamFileList += options.bams.split(',')
         #bamFileList = utils.uniquify(bamFileList) # makes sad when you have the same control bam over and over again
+
+    for bam in bamFileList:
+        if not os.path.isfile('{}.bai'.format(bam)):
+            print('INDEX FILE FOR %s IS MISSING' % bam)
+            exit()
+    
     # optional args
 
     # Stitch parameter
@@ -577,7 +580,7 @@ def main():
     # MAPPING TO THE STITCHED GFF
 
     # Try to use the bamliquidatior_path.py script on cluster, otherwise, failover to local (in path), otherwise fail.
-    bamliquidator_path = 'bamliquidator_batch.py'
+    bamliquidator_path = 'bamliquidator_batch'
 
 
     bamFileListUnique = list(bamFileList)
@@ -616,13 +619,13 @@ def main():
 
         rankbyName = options.rankby.split('/')[-1]
         controlName = options.control.split('/')[-1]
-        cmd = '%sROSE2_callSuper.R %s %s %s %s' % (scriptsDirectory, outFolder, outputFile1, inputName, controlName)
+        cmd = 'ROSE2_callSuper.R %s %s %s %s' % (outFolder, outputFile1, inputName, controlName)
         
         
     else:
         rankbyName = options.rankby.split('/')[-1]
         controlName = 'NONE'
-        cmd = 'R --no-save %s %s %s %s < %sROSE2_callSuper.R' % (outFolder, outputFile1, inputName, controlName, scriptsDirectory)
+        cmd = 'ROSE2_callSuper.R %s %s %s %s' % (outFolder, outputFile1, inputName, controlName)
         
     print(cmd)
 

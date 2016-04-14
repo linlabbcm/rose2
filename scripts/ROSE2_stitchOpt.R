@@ -1,4 +1,4 @@
-#!/bin/Rscript
+#!/usr/bin/env Rscript
 stitchFile = commandArgs(TRUE)[1]
 
 outFolder = commandArgs(TRUE)[2]
