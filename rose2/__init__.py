@@ -488,6 +488,7 @@ def main():
         'MM8': '%smm8_refseq.ucsc' % (annotationDirectory),
         'MM10': '%smm10_refseq.ucsc' % (annotationDirectory),
         'RN4': '%srn4_refseq.ucsc' % (annotationDirectory),
+        'RN6': '%srn6_refseq.ucsc' % (annotationDirectory),
     }
 
     annotFile = genomeDict[genome.upper()]
