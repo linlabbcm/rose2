@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2014 Charles Lin (Bradner Lab)
+Copyright (c) 2018 Charles Lin (Bradner Lab)
     and Collaborators:
         John DiMatteo
         Nick Semenkovich | semenko@alum.mit.edu | https://nick.semenkovich.com
