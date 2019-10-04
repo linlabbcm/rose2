@@ -105,7 +105,15 @@ def mapEnhancerToGene(annotFile,enhancerFile,transcribedFile='',uniqueGenes=True
 
     if len(transcribedFile) > 0:
         transcribedTable = utils.parseTable(transcribedFile,'\t')
-        transcribedGenes = [line[1] for line in transcribedTable]
+        #figure out which column has refseq identifiers
+        line = transcribedTable[0]
+        ref_col = 0
+        if len(line) > 1:
+            for i in range(len(line)):
+
+                if line[i].count('NM_') >0 or line[i].count('NR_') >0:
+                    ref_col = i
+        transcribedGenes = [line[ref_col] for line in transcribedTable]
     else:
         transcribedGenes = startDict.keys()
 
@@ -134,25 +142,35 @@ def mapEnhancerToGene(annotFile,enhancerFile,transcribedFile='',uniqueGenes=True
     #list of all genes that appear in this analysis
     overallGeneList = []
 
+    # find the header
+    for line in enhancerTable:
+        if line[0][0] != '#':
+            header = line
+            print('this is the header')
+            print(header)
+            break
+
     if noFormatTable:
-        #set up the output tables
-        #first by enhancer
-        enhancerToGeneTable = [enhancerTable[0]+['OVERLAP_GENES','PROXIMAL_GENES','CLOSEST_GENE']]
+        # set up the output tables
+        # first by enhancer
+        enhancerToGeneTable = [header + ['OVERLAP_GENES', 'PROXIMAL_GENES', 'CLOSEST_GENE']]
 
-        
     else:
-        #set up the output tables
-        #first by enhancer
-        enhancerToGeneTable = [enhancerTable[0][0:9]+['OVERLAP_GENES','PROXIMAL_GENES','CLOSEST_GENE'] + enhancerTable[5][-2:]]
+                # set up the output tables
+        # first by enhancer
+        enhancerToGeneTable = [
+            header[0:9] + ['OVERLAP_GENES', 'PROXIMAL_GENES', 'CLOSEST_GENE'] + header[-2:]
+        ]
 
-        #next by gene
-        geneToEnhancerTable = [['GENE_NAME','REFSEQ_ID','PROXIMAL_ENHANCERS']]
-
-    #next make the gene to enhancer table
-    geneToEnhancerTable = [['GENE_NAME','REFSEQ_ID','PROXIMAL_ENHANCERS','ENHANCER_RANKS','IS_SUPER']]
-
-        
-
+    # next make the gene to enhancer table
+    geneToEnhancerTable = [[
+        'GENE_NAME',
+        'REFSEQ_ID',
+        'PROXIMAL_ENHANCERS',
+        'ENHANCER_RANKS',
+        'IS_SUPER',
+        'ENHANCER_SIGNAL',
+    ]]
 
     for line in enhancerTable:
         if line[0][0] =='#' or line[0][0] == 'R':
@@ -355,33 +373,35 @@ def mapEnhancerToGeneTop(rankByBamFile, controlBamFile, genome, annotFile, enhan
     # list of all genes that appear in this analysis
     overallGeneList = []
 
-    # find the damn header
+    # find the header
     for line in enhancerTable:
-        if line[0][0] == '#':
-            continue
-        else:
+         if line[0][0] != '#':
             header = line
+            print('this is the header')
+            print(header)
             break
 
     if noFormatTable:
         # set up the output tables
         # first by enhancer
-        enhancerToGeneTable = [
-            header + ['OVERLAP_GENES', 'PROXIMAL_GENES', 'CLOSEST_GENE']]
+        enhancerToGeneTable = [header + ['OVERLAP_GENES', 'PROXIMAL_GENES', 'CLOSEST_GENE']]
 
     else:
         # set up the output tables
         # first by enhancer
         enhancerToGeneTable = [
-            header[0:9] + ['OVERLAP_GENES', 'PROXIMAL_GENES', 'CLOSEST_GENE'] + header[-2:]]
-
-        # next by gene
-        geneToEnhancerTable = [
-            ['GENE_NAME', 'REFSEQ_ID', 'PROXIMAL_ENHANCERS']]
+            header[0:9] + ['OVERLAP_GENES', 'PROXIMAL_GENES', 'CLOSEST_GENE'] + header[-2:]
+        ]
 
     # next make the gene to enhancer table
-    geneToEnhancerTable = [
-        ['GENE_NAME', 'REFSEQ_ID', 'PROXIMAL_ENHANCERS', 'ENHANCER_RANKS', 'IS_SUPER', 'ENHANCER_SIGNAL']]
+    geneToEnhancerTable = [[
+        'GENE_NAME',
+        'REFSEQ_ID',
+        'PROXIMAL_ENHANCERS',
+        'ENHANCER_RANKS',
+        'IS_SUPER',
+        'TSS_SIGNAL',
+    ]]
 
     for line in enhancerTable:
         if line[0][0] == '#' or line[0][0] == 'R':

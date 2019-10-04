@@ -497,7 +497,6 @@ def main():
     print('MAKING START DICT')
     startDict = utils.makeStartDict(annotFile)
 
-
     #GET CHROMS FOUND IN THE BAMS
     print('GETTING CHROMS IN BAMFILES')
     bamChromList = getBamChromList(bamFileList)
@@ -511,14 +510,15 @@ def main():
     print('LOADING IN GFF REGIONS')
     referenceCollection = utils.gffToLocusCollection(inputGFF)
 
+    print('STARTING WITH {} INPUT REGIONS'.format(len(referenceCollection)))
     print('CHECKING REFERENCE COLLECTION:')
     checkRefCollection(referenceCollection)
-        
 
     # MASKING REFERENCE COLLECTION
     # see if there's a mask
     if options.mask:
         maskFile = options.mask
+        print('USING MASK FILE {}'.format(maskFile))
         # if it's a bed file
         if maskFile.split('.')[-1].upper() == 'BED':
             maskGFF = utils.bedToGFF(maskFile)
@@ -526,8 +526,9 @@ def main():
             maskGFF = utils.parseTable(maskFile, '\t')
         else:
             print("MASK MUST BE A .gff or .bed FILE")
-            sys.exit()
+
         maskCollection = utils.gffToLocusCollection(maskGFF)
+        print('LOADING {} MASK REGIONS'.format(len(maskCollection)))
 
         # now mask the reference loci
         referenceLoci = referenceCollection.getLoci()

@@ -204,17 +204,36 @@ def bedToGFF(bed, output=''):
 
     gff = []
 
+    #determine if this is a long bed or a short bed
+
+    print(len(bed[0]))
+    print(bed[0])
+
+    if len(bed[0]) == 6: # this is a full format bed
+        bed_style = 'long'
+    elif len(bed[0]) == 5: # this is the medium  length bed with strand
+        bed_style = 'medium'
+    elif len(bed[0]) == 3: # this is the minimum length bed
+        bed_style = 'short'
+    else:
+        print('this is probably not actually a bed')
+        print(bed[0])
+        print('exiting now because the bed is sad')
+        sys.exit()
+    print('this bed has %s columns and is a %s bed' % (len(bed[0]),bed_style))
     for line in bed:
-
-        gffLine = [line[0],line[3],'',line[1],line[2],line[4],line[5],'',line[3]]
+        if bed_style == 'long':
+            gffLine = [line[0],line[3],'',line[1],line[2],line[4],line[5],'',line[3]]
+        if bed_style == 'medium':
+            gffLine = [line[0],'','',line[1],line[2],'',line[4],'','']
+        if bed_style == 'short':
+            gffLine = [line[0],'','',line[1],line[2],'','.','','']
         gff.append(gffLine)
-
 
     if len(output) > 0:
         unParseTable(gff,output,'\t')
     else:
         return gff
-
 
 
 #100912
@@ -299,7 +318,7 @@ def getParentFolder(inputFile):
     returns the parent folder for any file
     '''
 
-    parentFolder = join(inputFile.split('/')[:-1],'/') +'/'
+    parentFolder = '/'.join(inputFile.split('/')[:-1]) + '/'
     if parentFolder =='':
         return './'
     else:
@@ -663,9 +682,9 @@ class Locus:
                 phastBases += lineLen
 
         if phastBases > self.len():
-            print "this locus is sad %s. please debug me" % (self.__str__())
-            print "locus length is %s" % (self.len())
-            print "phastBases are %s" % (phastBases)
+            print("this locus is sad {}. please debug me".format(self.__str__()))
+            print("locus length is {}".format(self.len()))
+            print("phastBases are {}".format(phastBases))
 
 
         return phastSum/self.len()
@@ -1373,7 +1392,7 @@ def gffToFasta(genome,directory,gff,UCSC = True,useID=False):
         if useID:
             name = '>' + line[1]
         else:
-            name = '>'+ join([genome.lower(),line[0],str(line[3]),str(line[4]),line[6]],'|')
+            name = '>' + '|'.join([genome.lower(),line[0],str(line[3]),str(line[4]),line[6]])
         fastaList.append(name)
         if line[6] == '-':
             #print(line[3])
